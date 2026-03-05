@@ -10,5 +10,8 @@ const axiosRequestConfig: AxiosRequestConfig = {
 
 const client: AxiosInstance = axios.create(axiosRequestConfig);
 
-client.interceptors.request.use(requestInterceptor);
 client.interceptors.response.use(successInterceptor, errorInterceptor);
+
+client.interceptors.request.use(requestInterceptor, errorInterceptor);
+
+export const request = client;
