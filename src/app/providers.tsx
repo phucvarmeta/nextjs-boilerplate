@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { type ReactNode, useEffect, useState } from 'react';
+import { ThemeProvider } from '../providers/theme-provider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,10 +28,12 @@ function Providers({ children }: ProvidersProps) {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <>{isMounted ? children : <></>}</>
-      <ReactQueryDevtools buttonPosition='bottom-left' initialIsOpen={false} />
-    </QueryClientProvider>
+    <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+      <QueryClientProvider client={queryClient}>
+        <>{isMounted ? children : <></>}</>
+        <ReactQueryDevtools buttonPosition='bottom-left' initialIsOpen={false} />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

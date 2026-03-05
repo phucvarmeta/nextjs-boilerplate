@@ -1,4 +1,5 @@
 import { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const webpackConfig = (config: any) => {
   // Grab the existing rule that handles SVG imports
@@ -50,4 +51,5 @@ const nextConfig: NextConfig = {
   webpack: process.env.NODE_ENV === 'development' ? undefined : webpackConfig,
 };
 
-module.exports = nextConfig;
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+module.exports = withNextIntl(nextConfig);
